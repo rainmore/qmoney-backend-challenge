@@ -26,23 +26,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
 
-  static final Long MEMBER_ID = 112233L;
+  private static final Long MEMBER_ID = 112233L;
 
-  static final String PROGRAM_ID = "FF";
-
-  @Mock
-  MemberRepository memberRepository;
+  private static final String PROGRAM_ID = "FF";
 
   @Mock
-  ProgramRepository programRepository;
+  private MemberRepository memberRepository;
 
   @Mock
-  MemberProgramRepository memberProgramRepository;
+  private ProgramRepository programRepository;
 
   @Mock
-  OfferClient offerClient;
+  private MemberProgramRepository memberProgramRepository;
 
-  MemberService memberService;
+  @Mock
+  private OfferClient offerClient;
+
+  private MemberService memberService;
 
   @BeforeEach
   void beforeEach() {

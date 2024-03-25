@@ -16,7 +16,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 @TestInstance(Lifecycle.PER_CLASS)
 public abstract class AbstractControllerIT extends ApplicationIT {
 
-  ObjectMapper objectMapper;
+  protected ObjectMapper objectMapper;
 
   @BeforeEach
   void abstractControllerIT_BeforeEach() {

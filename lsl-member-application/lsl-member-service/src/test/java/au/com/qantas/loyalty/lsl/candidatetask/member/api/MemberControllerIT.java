@@ -29,14 +29,14 @@ import org.springframework.web.context.WebApplicationContext;
 
 class MemberControllerIT extends AbstractControllerIT {
 
-  static final Long MEMBER_ID = 112233L;
+  private static final Long MEMBER_ID = 112233L;
 
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
 
   @MockBean
-  MemberService memberService;
+  private MemberService memberService;
 
-  @Autowired
+  private @Autowired
   WebApplicationContext wac;
 
   @BeforeEach
