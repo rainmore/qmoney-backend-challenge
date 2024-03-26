@@ -1,12 +1,12 @@
 package au.com.qantas.loyalty.lsl.candidatetask.offers.repository;
 
 import au.com.qantas.loyalty.lsl.candidatetask.offers.entity.OfferEntity;
-import java.util.List;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.stereotype.Repository;
 
-public interface OfferRepository extends CrudRepository<OfferEntity, Long> {
-
-  @Override
-  List<OfferEntity> findAll();
+@Repository
+public interface OfferRepository extends JpaRepository<OfferEntity, Long>,
+  QuerydslPredicateExecutor<OfferEntity> {
 
 }
