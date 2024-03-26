@@ -8,6 +8,7 @@ import au.com.qantas.loyalty.lsl.candidatetask.member.service.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -59,8 +60,7 @@ public class MemberController implements MemberApi {
           String.join(", ", programIds)));
     }
 
-    member.getEnrolledPrograms().clear();
-    member.getEnrolledPrograms().addAll(programs);
+    member.setEnrolledPrograms(new HashSet<>(programs));
 
     return memberService.updateMember(member);
   }

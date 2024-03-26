@@ -18,9 +18,15 @@ public class ProgramService {
 
   private ProgramRepository programRepository;
 
+  private ProgramConverter programConverter;
+
   @Autowired
-  public ProgramService(final ProgramRepository programRepository) {
+  public ProgramService(
+    final ProgramRepository programRepository,
+    final ProgramConverter programConverter
+  ) {
     this.programRepository = programRepository;
+    this.programConverter = programConverter;
   }
 
   public List<Program> getPrograms() {
@@ -32,11 +38,7 @@ public class ProgramService {
     log.info("Found '{}' programs", foundPrograms.size());
 
     return foundPrograms.stream()
-        .map(programEntity -> Program.builder()
-            .programId(programEntity.getProgramId())
-            .marketingName(programEntity.getProgramName())
-            .summaryDescription(programEntity.getProgramDescription())
-            .build())
+        .map(programConverter::convertFromEntity)
         .toList();
   }
 
@@ -45,11 +47,7 @@ public class ProgramService {
     final Iterable<ProgramEntity> foundPrograms = programRepository.findAllById(programIds);
 
     List<Program> programs = StreamSupport.stream(foundPrograms.spliterator(), false)
-      .map(programEntity -> Program.builder()
-        .programId(programEntity.getProgramId())
-        .marketingName(programEntity.getProgramName())
-        .summaryDescription(programEntity.getProgramDescription())
-        .build())
+      .map(programConverter::convertFromEntity)
       .toList();
 
     log.info("Found '{}' programs", programs.size());
@@ -68,12 +66,6 @@ public class ProgramService {
 
     log.info("Found a program by id '{}'", programId);
 
-    final ProgramEntity foundProgramEntity = optionalFoundProgramEntity.get();
-
-    return Optional.of(Program.builder()
-        .programId(foundProgramEntity.getProgramId())
-        .marketingName(foundProgramEntity.getProgramName())
-        .summaryDescription(foundProgramEntity.getProgramDescription())
-        .build());
+    return optionalFoundProgramEntity.map(programConverter::convertFromEntity);
   }
 }

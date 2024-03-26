@@ -40,12 +40,16 @@ class MemberServiceTest {
 
   private MemberService memberService;
 
+
   @BeforeEach
   void beforeEach() {
     memberService = new MemberService(
         memberRepository,
         programRepository,
-        offerClient);
+        offerClient,
+        new MemberConverter(new ProgramConverter()),
+        new OfferConverter()
+      );
   }
 
   @Test
