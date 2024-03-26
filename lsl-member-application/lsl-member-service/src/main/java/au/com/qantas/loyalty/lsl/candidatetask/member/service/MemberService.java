@@ -62,9 +62,9 @@ public class MemberService {
 
     final Set<Program> enrolledPrograms = memberEntity.getEnrolledPrograms().stream().map(programEntity ->
       Program.builder()
-        .programId(programToEnrolMemberIn.getProgramId())
-        .marketingName(programToEnrolMemberIn.getProgramName())
-        .summaryDescription(programToEnrolMemberIn.getProgramDescription())
+        .programId(programEntity.getProgramId())
+        .marketingName(programEntity.getProgramName())
+        .summaryDescription(programEntity.getProgramDescription())
         .build()
     ).collect(Collectors.toSet());
 
@@ -77,6 +77,54 @@ public class MemberService {
         .memberSince(savedMember.getEnrolledSince())
         .offerCategoryPreference(savedMember.getOfferCategoryPreference())
         .build();
+  }
+
+  public Member updateMember(Member member) {
+    final Optional<MemberEntity> memberEntity = memberRepository.findById(member.getMemberId());
+
+    final MemberEntity entity;
+    if (memberEntity.isPresent()) {
+      entity = memberEntity.get();
+
+      entity.setSurname(member.getLastName());
+      entity.setGivenName(member.getFirstName());
+      entity.setAccountStatus(member.getAccountStatus());
+      entity.setEnrolledSince(member.getMemberSince());
+      entity.setOfferCategoryPreference(member.getOfferCategoryPreference());
+
+      Set<ProgramEntity> programEntities = new HashSet<>();
+      if (member.getEnrolledPrograms() != null) {
+        member.getEnrolledPrograms().forEach(program -> programEntities.add(
+          ProgramEntity.builder()
+            .programId(program.getProgramId())
+            .programName(program.getMarketingName())
+            .programDescription(program.getSummaryDescription())
+            .build()
+        ));
+      }
+      entity.getEnrolledPrograms().clear();
+      entity.getEnrolledPrograms().addAll(programEntities);
+      memberRepository.save(entity);
+      final Set<Program> enrolledPrograms = entity.getEnrolledPrograms().stream().map(programEntity ->
+        Program.builder()
+          .programId(programEntity.getProgramId())
+          .marketingName(programEntity.getProgramName())
+          .summaryDescription(programEntity.getProgramDescription())
+          .build()
+      ).collect(Collectors.toSet());
+
+      return Member.builder()
+        .memberId(entity.getMemberId())
+        .accountStatus(entity.getAccountStatus())
+        .enrolledPrograms(enrolledPrograms)
+        .firstName(entity.getGivenName())
+        .lastName(entity.getSurname())
+        .memberSince(entity.getEnrolledSince())
+        .offerCategoryPreference(entity.getOfferCategoryPreference())
+        .build();
+    }
+
+    return member;
   }
 
   public Optional<Member> getMember(final Long memberId) {
