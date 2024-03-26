@@ -35,7 +35,7 @@ public interface ProgramApi {
   @ApiResponse(
       responseCode = "200",
       description = "The response payload contains the program information.",
-      content = @Content(schema = @Schema(implementation = Member.class)))
+      content = @Content(schema = @Schema(implementation = Program.class)))
   Program getProgram(
       @PathVariable
       @Parameter(example = "FF") final String programId);
