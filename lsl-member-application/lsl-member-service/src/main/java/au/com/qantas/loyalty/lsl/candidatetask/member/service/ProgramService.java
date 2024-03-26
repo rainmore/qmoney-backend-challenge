@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProgramService {
 
-  public static final String FREQUENT_FLYER_PROGRAM = "FF";
-
   private ProgramRepository programRepository;
 
   @Autowired

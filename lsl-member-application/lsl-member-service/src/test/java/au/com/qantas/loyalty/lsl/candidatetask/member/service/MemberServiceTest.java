@@ -1,27 +1,26 @@
 package au.com.qantas.loyalty.lsl.candidatetask.member.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
 import au.com.qantas.loyalty.lsl.candidatetask.member.client.OfferClient;
 import au.com.qantas.loyalty.lsl.candidatetask.member.entity.MemberEntity;
-import au.com.qantas.loyalty.lsl.candidatetask.member.entity.MemberProgramEntity;
 import au.com.qantas.loyalty.lsl.candidatetask.member.entity.ProgramEntity;
 import au.com.qantas.loyalty.lsl.candidatetask.member.model.Member;
-import au.com.qantas.loyalty.lsl.candidatetask.member.repository.MemberProgramRepository;
 import au.com.qantas.loyalty.lsl.candidatetask.member.repository.MemberRepository;
 import au.com.qantas.loyalty.lsl.candidatetask.member.repository.ProgramRepository;
 import au.com.qantas.loyalty.lsl.candidatetask.model.AccountStatus;
 import au.com.qantas.loyalty.lsl.candidatetask.model.OfferCategory;
 import au.com.qantas.loyalty.lsl.candidatetask.offers.model.Offer;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
@@ -37,9 +36,6 @@ class MemberServiceTest {
   private ProgramRepository programRepository;
 
   @Mock
-  private MemberProgramRepository memberProgramRepository;
-
-  @Mock
   private OfferClient offerClient;
 
   private MemberService memberService;
@@ -49,7 +45,6 @@ class MemberServiceTest {
     memberService = new MemberService(
         memberRepository,
         programRepository,
-        memberProgramRepository,
         offerClient);
   }
 
@@ -71,22 +66,15 @@ class MemberServiceTest {
         .description("See the autumn leaves of Canada")
         .build());
 
-    final List<MemberProgramEntity> memberProgramEntities = List.of(MemberProgramEntity.builder()
-        .memberId(MEMBER_ID)
-        .programId(PROGRAM_ID)
-        .build());
-
     final List<ProgramEntity> programs = List.of(ProgramEntity.builder()
             .programId(PROGRAM_ID)
             .programName("Frequent Flyer")
             .programDescription("Frequent Flyer program")
         .build());
 
-
     when(memberRepository.findById(MEMBER_ID)).thenReturn(Optional.of(memberEntity));
     when(offerClient.getOffers()).thenReturn(offers);
-    when(memberProgramRepository.findAllByMemberId(MEMBER_ID)).thenReturn(memberProgramEntities);
-    when(programRepository.findAllById(List.of(PROGRAM_ID))).thenReturn(programs);
+    when(programRepository.findAllByMemberId(MEMBER_ID)).thenReturn(programs);
 
     final Optional<Member> actual = memberService.getMember(MEMBER_ID);
 

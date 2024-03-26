@@ -4,12 +4,16 @@ import au.com.qantas.loyalty.lsl.candidatetask.model.AccountStatus;
 import au.com.qantas.loyalty.lsl.candidatetask.model.OfferCategory;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -54,4 +58,11 @@ public class MemberEntity implements Serializable {
   @Column(name = "PREFERENCE", nullable = false)
   @Enumerated(EnumType.STRING)
   private OfferCategory offerCategoryPreference;
+
+  @NotNull
+  @ManyToMany
+  @JoinTable(name = "MEMBER_PROGRAM",
+    joinColumns = @JoinColumn(name = "MEMBER_ID"),
+    inverseJoinColumns = @JoinColumn(name = "PROGRAM_ID"))
+  private Set<ProgramEntity> enrolledPrograms;
 }
