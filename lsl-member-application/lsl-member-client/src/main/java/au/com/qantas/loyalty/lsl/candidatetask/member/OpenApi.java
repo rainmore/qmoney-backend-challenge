@@ -11,11 +11,11 @@ public final class OpenApi {
   public static final String PROGRAM_API_TAG = "Program APIs";
 
   public static final String MEMBER_URL = "/member";
-  public static final String MEMBER_MEMBER_ID_URL = "/member/{memberId}";
+  public static final String MEMBER_MEMBER_ID_URL = "/member/{memberId:\\d+}";
 
-  public static final String MEMBER_ENROLL_PROGRAM_URL = "/member/{memberId}/enroll-programs";
+  public static final String MEMBER_ENROLL_PROGRAM_URL = "/member/{memberId:\\d+}/enroll-programs";
 
   public static final String PROGRAM_URL = "/program";
-  public static final String PROGRAM_PROGRAM_ID_URL = "/program/{programId}";
+  public static final String PROGRAM_PROGRAM_ID_URL = "/program/{programId:\\d+}";
 
 }

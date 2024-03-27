@@ -10,8 +10,8 @@ public final class OpenApi {
   public static final String OFFERS_API_TAG = "Offers APIs";
 
   public static final String OFFER_URL = "/offer";
-  public static final String OFFER_OFFER_ID_URL = "/offer/{offerId}";
+  public static final String OFFER_OFFER_ID_URL = "/offer/{offerId:\\d+}";
 
-  public static final String OFFER_OFFER_CATEGORY_URL = "/offer/{offerCategory}";
+  public static final String OFFER_OFFER_CATEGORY_URL = "/offer/{offerCategory:[A-Z]+}";
 
 }
