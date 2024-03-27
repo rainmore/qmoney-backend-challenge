@@ -77,7 +77,7 @@ class MemberServiceTest {
         .build());
 
     when(memberRepository.findById(MEMBER_ID)).thenReturn(Optional.of(memberEntity));
-    when(offerClient.getOffers()).thenReturn(offers);
+    when(offerClient.getOffers(memberEntity.getOfferCategoryPreference())).thenReturn(offers);
     when(programRepository.findAllByMemberId(MEMBER_ID)).thenReturn(programs);
 
     final Optional<Member> actual = memberService.getMember(MEMBER_ID);

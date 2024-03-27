@@ -94,7 +94,7 @@ public class MemberService {
 
     Member member = memberConverter.convertFromEntity(foundMemberEntity);
 
-    final List<Offer> offers = offerClient.getOffers();
+    final List<Offer> offers = offerClient.getOffers(member.getOfferCategoryPreference());
     final List<Member.Offer> memberOffers = offers.stream()
         .map(offerConverter::convertFromEntity)
         .toList();
