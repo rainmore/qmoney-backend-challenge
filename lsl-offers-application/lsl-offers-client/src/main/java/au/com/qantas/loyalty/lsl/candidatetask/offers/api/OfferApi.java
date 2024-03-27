@@ -3,6 +3,7 @@ package au.com.qantas.loyalty.lsl.candidatetask.offers.api;
 import static au.com.qantas.loyalty.lsl.candidatetask.offers.OpenApi.OFFERS_API_TAG;
 
 import au.com.qantas.loyalty.lsl.candidatetask.api.DefaultApiErrorResponses;
+import au.com.qantas.loyalty.lsl.candidatetask.model.OfferCategory;
 import au.com.qantas.loyalty.lsl.candidatetask.offers.OpenApi;
 import au.com.qantas.loyalty.lsl.candidatetask.offers.model.Offer;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +28,17 @@ public interface OfferApi {
       description = "The response payload contains the offer information.",
       content = @Content(schema = @Schema(implementation = Offer.class)))
   List<Offer> getOffers();
+
+  @GetMapping(value = OpenApi.OFFER_OFFER_CATEGORY_URL)
+  @Operation(summary = "Retrieve the offer information by offer-category",
+    description = "This API returns the offer information such as id, name and description.")
+  @ApiResponse(
+    responseCode = "200",
+    description = "The response payload contains the offer information.",
+    content = @Content(schema = @Schema(implementation = Offer.class)))
+  List<Offer> getOffers(
+    @PathVariable
+    @Parameter(name = "offerCategory", example = "NATURE") final OfferCategory offerCategory);
 
   @GetMapping(value = OpenApi.OFFER_OFFER_ID_URL)
   @Operation(summary = "Retrieve the offer information by offer-id",
