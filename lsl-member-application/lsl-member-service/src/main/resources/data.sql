@@ -30,3 +30,34 @@ VALUES ('110020', 'FF'),
        ('110022', 'FF'),
        ('110023', 'FF');
 
+INSERT INTO COUNTRY
+(COUNTRY_ID,
+ COUNTRY_CODE_1,
+ COUNTRY_CODE_2,
+ COUNTRY_NAME)
+VALUES (36,  'AU', 'AUS', 'Australia'),
+       (112, 'BY', 'BLR', 'Belarus'),
+       (392,  'JP', 'JPN', 'Japan'),
+       (620,  'PT', 'PRT', 'Portugal'),
+       (840,  'US', 'USA', 'United States of America');
+
+INSERT INTO ADDRESS
+(ADDRESS_ID,
+ ADDRESS_1,
+ ADDRESS_2,
+ CITY,
+ POSTCODE,
+ STATE,
+ COUNTRY_ID)
+VALUES (1, 'Qantas', '10 Bourke road', 'Mascot', '2020', 'NSW', '36'),
+       (2, 'Sydney Opera House', 'Bennelong Point', 'Sydney', '2000', 'NSW', '36'),
+       (3, 'Arrival Dr', NULL, 'Melbourne Airport', '3045', 'VIC', '36');
+
+INSERT INTO MEMBER_ADDRESS
+(MEMBER_ID,
+ ADDRESS_ID,
+ ADDRESS_CATEGORY)
+VALUES ('110020', 1, 'POSTAL'),
+       ('110020', 1, 'RESIDENTIAL'),
+       ('110020', 2, 'POSTAL'),
+       ('110021', 3, 'RESIDENTIAL');
