@@ -6,30 +6,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+
 @Data
 @Builder
 @AllArgsConstructor
-@JsonPropertyOrder({
-    "memberId",
-    "accountStatus",
-    "firstName",
-    "lastName",
-    "memberSince",
-    "enrolledPrograms",
-    "preference",
-    "offers"
-})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Member {
 
@@ -42,53 +32,51 @@ public class Member {
   }
 
   @NotNull
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonProperty(access = Access.READ_ONLY, index = 1)
   private Long memberId;
 
   @NotNull
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonProperty(access = Access.READ_ONLY, index = 2)
   private AccountStatus accountStatus;
 
   @NotBlank
   @Size(max = 50)
+  @JsonProperty(index = 3)
   private String firstName;
 
   @NotBlank
   @Size(max = 50)
+  @JsonProperty(index = 4)
   private String lastName;
 
   @NotNull
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonProperty(access = Access.READ_ONLY, index = 5)
   private LocalDate memberSince;
 
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonProperty(access = Access.READ_ONLY, index = 6)
   private Set<Program> enrolledPrograms;
 
+  @JsonProperty(index = 7)
   private OfferCategory offerCategoryPreference;
 
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonProperty(access = Access.READ_ONLY, index = 8)
   private List<Offer> offers;
 
   @Data
   @Builder
   @AllArgsConstructor
-  @JsonPropertyOrder({
-      "id",
-      "name",
-      "description"
-  })
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public static class Offer {
     @NotNull
-    @JsonProperty(access = Access.READ_ONLY)
+    @JsonProperty(access = Access.READ_ONLY, index = 1)
     private Long id;
 
     @Size(max = 20)
-    @JsonProperty(access = Access.READ_ONLY)
+    @JsonProperty(access = Access.READ_ONLY, index = 2)
     private String name;
 
     @Size(max = 200)
-    @JsonProperty(access = Access.READ_ONLY)
+    @JsonProperty(access = Access.READ_ONLY, index = 3)
     private String description;
 
   }
