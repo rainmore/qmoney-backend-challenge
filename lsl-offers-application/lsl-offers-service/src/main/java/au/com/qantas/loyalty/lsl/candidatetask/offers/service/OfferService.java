@@ -1,13 +1,18 @@
 package au.com.qantas.loyalty.lsl.candidatetask.offers.service;
 
+import au.com.qantas.loyalty.lsl.candidatetask.model.OfferCategory;
 import au.com.qantas.loyalty.lsl.candidatetask.offers.entity.OfferEntity;
+import au.com.qantas.loyalty.lsl.candidatetask.offers.entity.QOfferEntity;
 import au.com.qantas.loyalty.lsl.candidatetask.offers.model.Offer;
 import au.com.qantas.loyalty.lsl.candidatetask.offers.repository.OfferRepository;
-import java.util.List;
-import java.util.Optional;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Service
@@ -33,8 +38,25 @@ public class OfferService {
     log.info("Found '{}' offers", foundOffers.size());
 
     return foundOffers.stream()
-        .map(offerConverter::convertFromEntity)
-        .toList();
+      .map(offerConverter::convertFromEntity)
+      .toList();
+  }
+
+  public List<Offer> getOffers(OfferCategory offerCategory) {
+
+    log.info("Finding all offers by offer category={}", offerCategory);
+
+    final BooleanExpression criteria = QOfferEntity.offerEntity.offerCategory.eq(offerCategory);
+
+    final Iterable<OfferEntity> foundOffers = offerRepository.findAll(criteria);
+
+    List<Offer> offers = StreamSupport.stream(foundOffers.spliterator(), false)
+      .map(offerConverter::convertFromEntity)
+      .toList();
+
+    log.info("Found '{}' offers", offers.size());
+
+    return offers;
   }
 
   public Optional<Offer> getOffer(final Long offerId) {
