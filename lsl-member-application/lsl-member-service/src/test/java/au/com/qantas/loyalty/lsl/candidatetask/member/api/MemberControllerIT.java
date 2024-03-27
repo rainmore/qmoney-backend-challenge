@@ -3,6 +3,11 @@ package au.com.qantas.loyalty.lsl.candidatetask.member.api;
 import au.com.qantas.loyalty.lsl.candidatetask.api.InternalServerException;
 import au.com.qantas.loyalty.lsl.candidatetask.api.ResourceNotFoundException;
 import au.com.qantas.loyalty.lsl.candidatetask.member.OpenApi;
+import au.com.qantas.loyalty.lsl.candidatetask.member.entity.AddressEntity;
+import au.com.qantas.loyalty.lsl.candidatetask.member.entity.CountryEntity;
+import au.com.qantas.loyalty.lsl.candidatetask.member.entity.MemberAddressEntity;
+import au.com.qantas.loyalty.lsl.candidatetask.member.entity.MemberAddressPK;
+import au.com.qantas.loyalty.lsl.candidatetask.member.model.AddressCategory;
 import au.com.qantas.loyalty.lsl.candidatetask.member.model.Member;
 import au.com.qantas.loyalty.lsl.candidatetask.member.model.Program;
 import au.com.qantas.loyalty.lsl.candidatetask.member.service.MemberService;
@@ -136,7 +141,14 @@ class MemberControllerIT extends AbstractControllerIT {
       .andExpect(jsonPath("$.enrolledPrograms[2].programId", is("FF")))
       .andExpect(jsonPath("$.enrolledPrograms[2].marketingName", is("Frequent Flyer")))
       .andExpect(jsonPath("$.enrolledPrograms[1].programId", is("ER")))
-      .andExpect(jsonPath("$.enrolledPrograms[1].marketingName", is("Extra Rewards")));
+      .andExpect(jsonPath("$.addresses[0].id", is(1)))
+      .andExpect(jsonPath("$.addresses[0].address1", is("Qantas")))
+      .andExpect(jsonPath("$.addresses[0].address2", is("10 Bourke road")))
+      .andExpect(jsonPath("$.addresses[0].city", is("Mascot")))
+      .andExpect(jsonPath("$.addresses[0].postcode", is("2020")))
+      .andExpect(jsonPath("$.addresses[0].state", is("NSW")))
+      .andExpect(jsonPath("$.addresses[0].country", is("Australia")))
+      .andExpect(jsonPath("$.addresses[0].category", is("RESIDENTIAL")));
   }
 
   @Test
@@ -219,6 +231,7 @@ class MemberControllerIT extends AbstractControllerIT {
       .firstName("Fred")
       .lastName("Flintstone")
       .enrolledPrograms(Set.of(buildPrograms().get(0)))
+      .addresses(buildMemberAddress())
       .build();
   }
 
@@ -240,6 +253,19 @@ class MemberControllerIT extends AbstractControllerIT {
         .summaryDescription("With Extra Rewards you will earn more points for both flights and purchases")
         .build()
     );
+  }
+
+  private List<Member.Address> buildMemberAddress() {
+    return List.of(Member.Address.builder()
+      .id(1L)
+      .address1("Qantas")
+      .address2("10 Bourke road")
+      .city("Mascot")
+      .postcode("2020")
+      .state("NSW")
+      .country("Australia")
+      .category(AddressCategory.RESIDENTIAL)
+      .build());
   }
 
 }

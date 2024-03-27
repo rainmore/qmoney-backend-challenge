@@ -29,7 +29,8 @@ public class MemberController implements MemberApi {
 
   @Override
   public Member createMember(final Member member) {
-    return memberService.createMember(member);
+    Member savedMember = memberService.createMember(member);
+    return getMemberBy(savedMember.getMemberId());
   }
 
   @Override
@@ -62,7 +63,8 @@ public class MemberController implements MemberApi {
 
     member.setEnrolledPrograms(new HashSet<>(programs));
 
-    return memberService.updateMember(member);
+    Member savedMember = memberService.updateMember(member);
+    return getMemberBy(savedMember.getMemberId());
   }
 
   private Member getMemberBy(final Long memberId) throws ResourceNotFoundException {
