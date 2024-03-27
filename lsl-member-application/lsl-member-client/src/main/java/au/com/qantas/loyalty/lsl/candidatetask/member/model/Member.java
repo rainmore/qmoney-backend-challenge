@@ -62,6 +62,9 @@ public class Member {
   @JsonProperty(access = Access.READ_ONLY, index = 8)
   private List<Offer> offers;
 
+  @JsonProperty(access = Access.READ_ONLY, index = 9)
+  private List<Member.Address> addresses;
+
   @Data
   @Builder
   @AllArgsConstructor
@@ -78,6 +81,51 @@ public class Member {
     @Size(max = 200)
     @JsonProperty(access = Access.READ_ONLY, index = 3)
     private String description;
+
+  }
+
+  @Data
+  @Builder
+  @AllArgsConstructor
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  public static class Address {
+    @NotNull
+    @JsonProperty(access = Access.READ_ONLY, index = 1)
+    private Long id;
+
+    @NotBlank
+    @Size(max = 20)
+    @JsonProperty(access = Access.READ_ONLY, index = 2)
+    private AddressCategory category;
+
+    @NotBlank
+    @Size(max = 200)
+    @JsonProperty(access = Access.READ_ONLY, index = 3)
+    private String address1;
+
+    @Size(max = 200)
+    @JsonProperty(access = Access.READ_ONLY, index = 4)
+    private String address2;
+
+    @NotBlank
+    @Size(max = 50)
+    @JsonProperty(access = Access.READ_ONLY, index = 5)
+    private String city;
+
+    @NotBlank
+    @Size(max = 50)
+    @JsonProperty(access = Access.READ_ONLY, index = 6)
+    private String postcode;
+
+    @NotBlank
+    @Size(max = 50)
+    @JsonProperty(access = Access.READ_ONLY, index = 7)
+    private String state;
+
+    @NotNull
+    @Size(max = 100)
+    @JsonProperty(access = Access.READ_ONLY, index = 8)
+    private String country;
 
   }
 }

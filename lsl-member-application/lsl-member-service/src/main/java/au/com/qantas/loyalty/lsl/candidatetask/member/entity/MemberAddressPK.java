@@ -1,5 +1,6 @@
 package au.com.qantas.loyalty.lsl.candidatetask.member.entity;
 
+import au.com.qantas.loyalty.lsl.candidatetask.member.model.AddressCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
