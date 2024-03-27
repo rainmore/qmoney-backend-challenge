@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class Program {
 
   @Size(max = 8)
-  @JsonProperty(index = 1)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY, index = 1)
   private String programId;
 
   @Size(max = 20)
