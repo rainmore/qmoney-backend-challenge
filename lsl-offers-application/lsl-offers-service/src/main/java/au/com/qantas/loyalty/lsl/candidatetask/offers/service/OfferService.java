@@ -15,9 +15,13 @@ public class OfferService {
 
   private OfferRepository offerRepository;
 
+  private OfferConverter offerConverter;
+
   @Autowired
-  public OfferService(final OfferRepository offerRepository) {
+  public OfferService(final OfferRepository offerRepository,
+                      final OfferConverter offerConverter) {
     this.offerRepository = offerRepository;
+    this.offerConverter = offerConverter;
   }
 
   public List<Offer> getOffers() {
@@ -29,12 +33,7 @@ public class OfferService {
     log.info("Found '{}' offers", foundOffers.size());
 
     return foundOffers.stream()
-        .map(offerEntity -> Offer.builder()
-            .id(offerEntity.getOfferId())
-            .name(offerEntity.getOfferName())
-            .category(offerEntity.getOfferCategory())
-            .description(offerEntity.getOfferDescription())
-            .build())
+        .map(offerConverter::convertFromEntity)
         .toList();
   }
 
@@ -52,11 +51,6 @@ public class OfferService {
 
     final OfferEntity offerEntity = optionalFoundOfferEntity.get();
 
-    return Optional.of(Offer.builder()
-        .id(offerEntity.getOfferId())
-        .name(offerEntity.getOfferName())
-        .category(offerEntity.getOfferCategory())
-        .description(offerEntity.getOfferDescription())
-        .build());
+    return Optional.of(offerConverter.convertFromEntity(offerEntity));
   }
 }

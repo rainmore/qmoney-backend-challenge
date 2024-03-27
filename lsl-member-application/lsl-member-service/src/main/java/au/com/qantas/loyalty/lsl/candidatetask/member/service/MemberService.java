@@ -68,7 +68,7 @@ public class MemberService {
       .orElseThrow(() ->
         new ResourceNotFoundException(String.format("No member exists with memberId=%d", member.getMemberId())));
 
-    memberConverter.convertDtoToEntity(member, entity);
+    memberConverter.copyDtoToEntity(member, entity);
     memberRepository.save(entity);
 
     return memberConverter.convertFromEntity(entity);

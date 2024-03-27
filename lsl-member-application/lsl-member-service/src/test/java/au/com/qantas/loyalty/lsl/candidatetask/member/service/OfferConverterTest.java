@@ -59,10 +59,10 @@ class OfferConverterTest {
   }
 
   @Test
-  void testConvertDtoToEntity_withAllPropertiesSet() {
+  void testCopyDtoToEntity_withAllPropertiesSet() {
     Member.Offer dto = buildDto();
     Offer entity = Offer.builder().build();
-    offerConverter.convertDtoToEntity(dto, entity);
+    offerConverter.copyDtoToEntity(dto, entity);
 
     assertThat(entity).isNotNull();
     assertThat(entity.getId()).isEqualTo(3344L);
@@ -71,10 +71,10 @@ class OfferConverterTest {
   }
 
   @Test
-  void testConvertDtoToEntity_withEmtpyDto() {
+  void testCopyDtoToEntity_withEmtpyDto() {
     Member.Offer dto = Member.Offer.builder().build();
     Offer entity = buildEntity();
-    offerConverter.convertDtoToEntity(dto, entity);
+    offerConverter.copyDtoToEntity(dto, entity);
 
     assertThat(entity).isNotNull();
     assertThat(entity.getId()).isNull();

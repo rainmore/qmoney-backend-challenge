@@ -14,8 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 class MemberConverterTest {
 
@@ -108,10 +106,10 @@ class MemberConverterTest {
   }
 
   @Test
-  void testConvertDtoToEntity_withAllPropertiesSet() {
+  void testCopyDtoToEntity_withAllPropertiesSet() {
     Member dto = buildDto();
     MemberEntity entity = MemberEntity.builder().build();
-    memberConverter.convertDtoToEntity(dto, entity);
+    memberConverter.copyDtoToEntity(dto, entity);
 
     assertThat(entity).isNotNull();
     assertThat(entity.getMemberId()).isEqualTo(112233L);
@@ -131,10 +129,10 @@ class MemberConverterTest {
   }
 
   @Test
-  void testConvertDtoToEntity_withEmtpyDto() {
+  void testCopyDtoToEntity_withEmtpyDto() {
     Member dto = Member.builder().build();
     MemberEntity entity = buildEntity();
-    memberConverter.convertDtoToEntity(dto, entity);
+    memberConverter.copyDtoToEntity(dto, entity);
 
     assertThat(entity).isNotNull();
     assertThat(entity.getMemberId()).isNull();

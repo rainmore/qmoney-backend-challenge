@@ -27,7 +27,7 @@ public class ProgramConverter implements EntityConverter<ProgramEntity, Program>
   }
 
   @Override
-  public void convertDtoToEntity(Program dto, ProgramEntity entity) {
+  public void copyDtoToEntity(Program dto, ProgramEntity entity) {
     entity.setProgramId(dto.getProgramId());
     entity.setProgramName(dto.getMarketingName());
     entity.setProgramDescription(dto.getSummaryDescription());

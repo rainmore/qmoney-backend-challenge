@@ -67,7 +67,7 @@ public class MemberConverter implements EntityConverter<MemberEntity, Member> {
   }
 
   @Override
-  public void convertDtoToEntity(Member dto, MemberEntity entity) {
+  public void copyDtoToEntity(Member dto, MemberEntity entity) {
     ProgramConverter programConverter = new ProgramConverter();
 
     AccountStatus accountStatus = Optional.ofNullable(dto.getAccountStatus())

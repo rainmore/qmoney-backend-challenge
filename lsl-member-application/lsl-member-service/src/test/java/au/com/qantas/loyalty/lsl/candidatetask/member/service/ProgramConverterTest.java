@@ -59,10 +59,10 @@ class ProgramConverterTest {
   }
 
   @Test
-  void testConvertDtoToEntity_withAllPropertiesSet() {
+  void testCopyDtoToEntity_withAllPropertiesSet() {
     Program dto = buildDto();
     ProgramEntity entity = ProgramEntity.builder().build();
-    programConverter.convertDtoToEntity(dto, entity);
+    programConverter.copyDtoToEntity(dto, entity);
 
     assertThat(entity).isNotNull();
     assertThat(entity.getProgramId()).isEqualTo("FF");
@@ -71,10 +71,10 @@ class ProgramConverterTest {
   }
 
   @Test
-  void testConvertDtoToEntity_withEmtpyDto() {
+  void testCopyDtoToEntity_withEmtpyDto() {
     Program dto = Program.builder().build();
     ProgramEntity entity = buildEntity();
-    programConverter.convertDtoToEntity(dto, entity);
+    programConverter.copyDtoToEntity(dto, entity);
 
     assertThat(entity).isNotNull();
     assertThat(entity.getProgramId()).isNull();

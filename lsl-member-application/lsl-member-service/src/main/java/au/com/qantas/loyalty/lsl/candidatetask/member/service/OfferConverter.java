@@ -27,7 +27,7 @@ public class OfferConverter implements EntityConverter<Offer, Member.Offer> {
   }
 
   @Override
-  public void convertDtoToEntity(Member.Offer dto, Offer entity) {
+  public void copyDtoToEntity(Member.Offer dto, Offer entity) {
     entity.setId(dto.getId());
     entity.setName(dto.getName());
     entity.setDescription(dto.getDescription());

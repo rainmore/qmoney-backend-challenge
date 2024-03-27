@@ -6,6 +6,6 @@ public interface EntityConverter<E, T> {
 
   E convertToEntity(T dto);
 
-  void convertDtoToEntity(T dto, E entity);
+  void copyDtoToEntity(T dto, E entity);
 
 }
