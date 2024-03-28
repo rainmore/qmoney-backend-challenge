@@ -2,7 +2,6 @@ package au.com.qantas.loyalty.lsl.candidatetask.member.service;
 
 import au.com.qantas.loyalty.lsl.candidatetask.ApplicationIT;
 import au.com.qantas.loyalty.lsl.candidatetask.member.entity.MemberAddressEntity;
-import au.com.qantas.loyalty.lsl.candidatetask.member.entity.MemberEntity;
 import au.com.qantas.loyalty.lsl.candidatetask.member.entity.QMemberAddressEntity;
 import au.com.qantas.loyalty.lsl.candidatetask.member.model.AddressCategory;
 import au.com.qantas.loyalty.lsl.candidatetask.member.model.Member;
