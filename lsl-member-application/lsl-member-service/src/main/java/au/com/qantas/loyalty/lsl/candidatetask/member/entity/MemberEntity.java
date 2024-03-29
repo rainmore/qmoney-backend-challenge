@@ -62,7 +62,7 @@ public class MemberEntity implements Serializable {
   @NotNull
   @ManyToMany
   @JoinTable(name = "MEMBER_PROGRAM",
-    joinColumns = @JoinColumn(name = "MEMBER_ID"),
-    inverseJoinColumns = @JoinColumn(name = "PROGRAM_ID"))
+    joinColumns = @JoinColumn(name = "MEMBER_ID", nullable = false, updatable = false),
+    inverseJoinColumns = @JoinColumn(name = "PROGRAM_ID", nullable = false, updatable = false))
   private Set<ProgramEntity> enrolledPrograms;
 }

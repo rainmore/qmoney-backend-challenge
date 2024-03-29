@@ -55,6 +55,6 @@ public class AddressEntity {
 
   @NotNull
   @ManyToOne
-  @JoinColumn(name = "COUNTRY_ID")
+  @JoinColumn(name = "COUNTRY_ID", updatable = false, nullable = false)
   private CountryEntity country;
 }
